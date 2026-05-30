@@ -19,21 +19,15 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Clean dependencies
-        run: |
-          cd frontend
-          rm -rf node_modules
-          rm -f package-lock.json
-
       - name: Install dependencies
         run: |
           cd frontend
-          npm install --verbose
+          npm install
 
-      - name: Rebuild native modules for Linux
+      - name: Install Linux Rollup binary
         run: |
           cd frontend
-          npm rebuild
+          npm install @rollup/rollup-linux-x64-gnu --save-dev
 
       - name: Build frontend
         run: |

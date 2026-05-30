@@ -19,11 +19,21 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Clean dependencies
+        run: |
+          cd frontend
+          rm -rf node_modules
+          rm -f package-lock.json
+
       - name: Install dependencies
         run: |
           cd frontend
-          rm -f package-lock.json
-          npm install
+          npm install --verbose
+
+      - name: Rebuild native modules for Linux
+        run: |
+          cd frontend
+          npm rebuild
 
       - name: Build frontend
         run: |

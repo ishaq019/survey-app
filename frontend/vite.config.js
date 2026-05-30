@@ -12,6 +12,15 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser'
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          recharts: ['recharts'],
+          tiptap: ['@tiptap/react', '@tiptap/starter-kit'],
+          vendor: ['react', 'react-dom', 'react-router-dom']
+        }
+      }
+    }
   }
 })

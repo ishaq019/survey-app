@@ -43,12 +43,12 @@ const HomePage = () => {
 
   const openManageSurvey = () => {
     if (!requireExam()) return;
-    navigate(`/admin/exams/${selectedExamId}/manage-survey`);
+    navigate(`/admin/exams/${selectedExamId}/survey-templates`);
   };
 
   const openPreSurvey = () => {
     if (!requireExam()) return;
-    navigate(`/student/exams/${selectedExamId}/pre-survey`);
+    navigate(`/student/exams/${selectedExamId}/before-survey`);
   };
 
   const openPostSurvey = () => {

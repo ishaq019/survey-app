@@ -37,8 +37,8 @@ jobs:
         working-directory: frontend
         run: npm run build
         env:
-          VITE_API_URL: https://survey-application-tawny.vercel.app/
-          VITE_QUIZ_APP_URL: https://syedishaq.me/Exam
+          VITE_API_URL: https://api.syedishaq.me/api
+          VITE_QUIZ_APP_URL: https://quiz.syedishaq.me
 
       - name: Add SPA fallback for client-side routing
         working-directory: frontend

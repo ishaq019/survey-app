@@ -53,3 +53,23 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
 }
+
+[data-theme='dark'] {
+  --bg: #0d1420;
+  --surface: #162132;
+  --surface-2: #1a2a40;
+  --surface-3: #111b2b;
+  --text: #e8eefc;
+  --muted: #9eb2d1;
+  --border: #2b3f5d;
+  --primary: #7fb1ff;
+  --primary-dark: #b8d3ff;
+  --primary-soft: rgba(127, 177, 255, 0.2);
+  --accent: #41d4c3;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #f87171;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}

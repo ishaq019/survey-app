@@ -7,8 +7,24 @@ import './index.css';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/survey-app">
+  <BrowserRouter
+    basename="/survey-app"
+    future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    }}
+  >
     <App />
-    <ToastContainer position="top-right" autoClose={2000} />
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      newestOnTop
+      closeOnClick
+      pauseOnFocusLoss={false}
+      draggable
+      pauseOnHover
+      theme="colored"
+      toastStyle={{ zIndex: 9999 }}
+    />
   </BrowserRouter>
 );

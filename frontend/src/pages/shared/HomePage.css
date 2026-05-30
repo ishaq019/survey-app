@@ -1,17 +1,18 @@
 .home-page {
   min-height: 100vh;
   padding: 32px;
-  background: #f4f7fb;
-  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
 }
 
 .survey-card {
-  background: #ffffff;
-  border: 1px solid #d9e2ef;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 28px 30px;
   margin-bottom: 24px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow);
 }
 
 .survey-label {
@@ -19,17 +20,17 @@
   margin-bottom: 10px;
   font-size: 16px;
   font-weight: 600;
-  color: #172033;
+  color: var(--text);
 }
 
 .exam-dropdown {
   width: 100%;
   padding: 13px 14px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 16px;
-  background-color: #ffffff;
-  color: #172033;
+  background-color: var(--surface);
+  color: var(--text);
   outline: none;
   cursor: pointer;
 }
@@ -40,7 +41,7 @@
 }
 
 .loading-text {
-  color: #64748b;
+  color: var(--muted);
   font-size: 15px;
 }
 
@@ -54,10 +55,10 @@
 .survey-actions button {
   min-width: 180px;
   padding: 12px 18px;
-  border: 1px solid #d0d7e2;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #ffffff;
-  color: #172033;
+  background: var(--surface);
+  color: var(--text);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -83,10 +84,10 @@
   display: block;
   margin-top: 16px;
   padding: 14px;
-  background: #f8fafc;
-  border: 1px solid #d9e2ef;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  color: #0f172a;
+  color: var(--text);
   overflow-x: auto;
   white-space: nowrap;
 }

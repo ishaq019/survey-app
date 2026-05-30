@@ -128,7 +128,7 @@ export default function SurveyTemplateManager() {
       pre: preSurveyUrl.toString(),
       post: postSurveyUrl.toString(),
       report: reportUrl.toString(),
-      quizBack: getReturnUrl('/admin/exams'),
+      quizBack: getReturnUrl(),
     };
   }, [examId]);
 

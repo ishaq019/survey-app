@@ -168,3 +168,16 @@
     border: 1px solid #ccc;
   }
 }
+
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+[data-theme='dark'] .Toastify__toast {
+  background: #1a2a40;
+  color: #e8eefc;
+}
+
+[data-theme='dark'] .Toastify__close-button {
+  color: #e8eefc;
+}

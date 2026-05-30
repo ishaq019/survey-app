@@ -161,7 +161,7 @@ export default function SurveyReport() {
           <p className="eyebrow">Survey Analytics</p>
           <h2>Exam Survey Report</h2>
         </div>
-        <a className="text-link" href={getReturnUrl('/admin/exams')}>
+        <a className="text-link" href={getReturnUrl()}>
           Back to exams
         </a>
       </div>

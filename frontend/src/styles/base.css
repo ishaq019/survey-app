@@ -11,13 +11,17 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   background:
-    radial-gradient(circle at top left, rgba(15, 98, 254, 0.12), transparent 34%),
-    linear-gradient(180deg, #f9fbff 0%, var(--bg) 100%);
+    radial-gradient(circle at top left, var(--primary-soft), transparent 34%),
+    linear-gradient(180deg, var(--surface-3) 0%, var(--bg) 100%);
   color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    background var(--transition);
 }
 
 /* Typography */

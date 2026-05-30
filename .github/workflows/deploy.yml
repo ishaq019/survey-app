@@ -34,6 +34,10 @@ jobs:
         working-directory: frontend
         run: npm install --prefer-offline --no-audit
 
+      - name: Ensure Rollup Linux native package is installed
+        working-directory: frontend
+        run: npm install --no-save --no-audit --force @rollup/rollup-linux-x64-gnu@4.60.4
+
       - name: Build
         working-directory: frontend
         run: npm run build

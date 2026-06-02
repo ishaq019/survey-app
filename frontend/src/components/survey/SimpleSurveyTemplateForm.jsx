@@ -8,10 +8,9 @@ const QUESTION_TYPES = [
   { value: 'textarea', label: 'Paragraph', icon: '📄' },
   { value: 'rating', label: 'Rating', icon: '⭐' },
 ];
-
 const DEFAULT_OPTIONS = {
-  singleChoice: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
-  multiSelect: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+  singleChoice: ['', '', '', ''],
+  multiSelect: ['', '', '', ''],
   text: [],
   textarea: [],
   rating: [],
@@ -43,22 +42,22 @@ export default function SimpleSurveyTemplateForm({ template, onSave, saving = fa
     }
   }, [template]);
 
-  const addQuestion = (type) => {
-    const timestamp = Date.now();
-    const selectedType = QUESTION_TYPES.find((item) => item.value === type);
-    const newQuestion = {
-      id: String(timestamp),
-      label: `New ${selectedType?.label || 'Question'}`,
-      fieldName: `question_${timestamp}`,
-      type,
-      required: false,
-      options: [...DEFAULT_OPTIONS[type]],
-      order: questions.length,
-      config: type === 'rating' ? { min: 1, max: 5, step: 1 } : {},
-    };
+const addQuestion = (type) => {
+  const timestamp = Date.now();
 
-    setQuestions([...questions, newQuestion]);
+  const newQuestion = {
+    id: String(timestamp),
+    label: '',
+    fieldName: `question_${timestamp}`,
+    type,
+    required: false,
+    options: [...DEFAULT_OPTIONS[type]],
+    order: questions.length,
+    config: type === 'rating' ? { min: 1, max: 5, step: 1 } : {},
   };
+
+  setQuestions([...questions, newQuestion]);
+};
 
   const updateQuestion = (index, field, value) => {
     const updated = [...questions];
@@ -74,13 +73,15 @@ export default function SimpleSurveyTemplateForm({ template, onSave, saving = fa
     setQuestions(updated);
   };
 
-  const addOption = (questionIndex) => {
-    const updated = [...questions];
-    const options = [...(updated[questionIndex].options || [])];
-    options.push(`Option ${options.length + 1}`);
-    updated[questionIndex] = { ...updated[questionIndex], options };
-    setQuestions(updated);
-  };
+ const addOption = (questionIndex) => {
+  const updated = [...questions];
+  const options = [...(updated[questionIndex].options || [])];
+
+  options.push('');
+
+  updated[questionIndex] = { ...updated[questionIndex], options };
+  setQuestions(updated);
+};
 
   const removeOption = (questionIndex, optionIndex) => {
     const updated = [...questions];
@@ -118,34 +119,54 @@ export default function SimpleSurveyTemplateForm({ template, onSave, saving = fa
     setQuestions(newQuestions.map((item, index) => ({ ...item, order: index })));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+ const handleSubmit = (event) => {
+  event.preventDefault();
 
-    const cleanedQuestions = questions.map((item, index) => {
-      const question = { ...item };
-      delete question.id;
+  const cleanedQuestions = questions.map((item, index) => {
+    const question = { ...item };
+    delete question.id;
 
-      return {
-        ...question,
-        type: question.type === 'paragraph' ? 'textarea' : question.type,
-        label: question.label || `Question ${index + 1}`,
-        fieldName: question.fieldName || `question_${index + 1}`,
-        options: ['singleChoice', 'multiSelect'].includes(question.type)
-          ? (question.options || []).filter(Boolean)
-          : [],
-        order: index,
-      };
-    });
+    const cleanedOptions = ['singleChoice', 'multiSelect'].includes(question.type)
+      ? (question.options || []).map((option) => option.trim()).filter(Boolean)
+      : [];
 
-    const updatedTemplate = {
-      ...template,
-      title,
-      description,
-      questions: cleanedQuestions,
+    return {
+      ...question,
+      type: question.type === 'paragraph' ? 'textarea' : question.type,
+      label: question.label?.trim() || '',
+      fieldName: question.fieldName || `question_${index + 1}`,
+      options: cleanedOptions,
+      order: index,
     };
+  });
 
-    onSave(updatedTemplate);
+  const hasEmptyQuestion = cleanedQuestions.some((question) => !question.label);
+
+  if (hasEmptyQuestion) {
+    alert('Please enter question text for all questions before saving.');
+    return;
+  }
+
+  const hasInvalidOptions = cleanedQuestions.some(
+    (question) =>
+      ['singleChoice', 'multiSelect'].includes(question.type) &&
+      question.options.length < 2
+  );
+
+  if (hasInvalidOptions) {
+    alert('Choice questions must have at least 2 options.');
+    return;
+  }
+
+  const updatedTemplate = {
+    ...template,
+    title,
+    description,
+    questions: cleanedQuestions,
   };
+
+  onSave(updatedTemplate);
+};
 
   return (
     <div className="simple-survey-form">
@@ -219,10 +240,10 @@ export default function SimpleSurveyTemplateForm({ template, onSave, saving = fa
                 </div>
 
                 <div className="question-label-editor">
-                  <RichTextEditor
+                 <RichTextEditor
                     value={question.label}
                     onChange={(value) => updateQuestion(index, 'label', value)}
-                    placeholder="Question text"
+                    placeholder="Enter your question here..."
                   />
                 </div>
 
@@ -244,15 +265,15 @@ export default function SimpleSurveyTemplateForm({ template, onSave, saving = fa
                         <div key={`${question.id}-${optionIndex}`} className="option-row">
                           <span className="option-bullet">•</span>
                           <input
-                            type="text"
-                            value={option}
-                            onChange={(event) =>
-                              updateOption(index, optionIndex, event.target.value)
-                            }
-                            className="option-input"
-                            placeholder="Option text"
-                            required
-                          />
+                              type="text"
+                              value={option}
+                              onChange={(event) =>
+                                updateOption(index, optionIndex, event.target.value)
+                              }
+                              className="option-input"
+                              placeholder={`Option ${optionIndex + 1}`}
+                              required
+                            />
                           {(question.options || []).length > 2 && (
                             <button
                               type="button"

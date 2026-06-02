@@ -6,14 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import App from './App';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter
-    basename="/survey-app"
-    future={{
-      v7_startTransition: true,
-      v7_relativeSplatPath: true,
-    }}
-  >
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <App />
     <ToastContainer
       position="top-right"
